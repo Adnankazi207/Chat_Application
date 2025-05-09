@@ -53,10 +53,13 @@ const PORT = process.env.PORT || 5000
 const server = app.listen(5000, console.log(`Server started on PORT ${PORT}`.yellow.bold));
 
 const io = require("socket.io")(server, {
-    pingTimeout: 60000,
-    cors: {
-        origin: "http://localhost:3000",
-    },
+  cors: {
+    origin: [
+      "http://localhost:3000", // CRA dev server
+      "https://chat-buddy-ktq6.onrender.com", // Deployed frontend
+    ],
+    credentials: true,
+  },
 });
 
 io.on("connection", (socket) => {
